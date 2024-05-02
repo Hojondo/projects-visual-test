@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Vue, { getCurrentInstance, onUpdated, ref } from "vue";
+import { onUpdated, ref } from "vue";
 import Test from './components/Test.vue'
 import Fn from './Tree'
 const fn = Fn();
