@@ -1,17 +1,14 @@
-// @ts-check
-import eslint from "@eslint/js";
+// import globals from "globals";
+import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 import pluginVue from "eslint-plugin-vue";
-import vueParser from "vue-eslint-parser";
 import eslintConfigPrettier from "eslint-config-prettier";
+import vueParser from "vue-eslint-parser";
 
-export default tseslint.config(
-  {
-    ignores: ["dist", "docs", "node_modules"],
-  },
-  eslint.configs.recommended,
+export default [
+  // { languageOptions: { globals: globals.browser } },
+  pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
-  // @ts-expect-error: 'pluginVue.configs' is not properly typed
   ...pluginVue.configs["flat/recommended"],
   eslintConfigPrettier,
   {
@@ -19,15 +16,15 @@ export default tseslint.config(
       parser: vueParser,
       parserOptions: {
         parser: tseslint.parser,
-        // project: true,
-        project: "./tsconfig.json",
+        // project: "./tsconfig.json",
         tsconfigRootDir: "./",
         extraFileExtensions: [".vue"],
-        ecmaVersion: 2020,
-        sourceType: "module"
+        ecmaVersion: 'ESNext',
+        sourceType: "module",
       },
     },
     rules: {
+      "vue/max-attributes-per-line": "off",
       "@typescript-eslint/array-type": "error",
       "@typescript-eslint/no-empty-function": "off",
       "@typescript-eslint/no-non-null-assertion": 0,
@@ -48,10 +45,8 @@ export default tseslint.config(
       "@typescript-eslint/unbound-method": "error",
       "vue/html-indent": ["warn", 4],
       "vue/no-mutating-props": "off",
-      "vue/max-attributes-per-line": "off",
-      "vue/html-self-closing": ["error", { html: { void: "any" } }],
       "vue/multi-word-component-names": "off",
-      "vue/singleline-html-element-content-newline": "off",
+      "vue/singleline-html-element-content-newline": "error",
     },
-  }
-);
+  },
+];

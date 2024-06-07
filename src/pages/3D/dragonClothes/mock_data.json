@@ -1,0 +1,140 @@
+{
+    "errno": 0,
+    "data": [
+        {
+            "id": 1,
+            "name": "可爱",
+            "type": 2,
+            "useStatus": 1,
+            "gainStatus": 1,
+            "count": 1,
+            "url": "https://b.bdstatic.com/file/20240122/17059069077177.png"
+        },
+        {
+            "id": 2,
+            "name": "运动",
+            "type": 1,
+            "useStatus": 0,
+            "gainStatus": 1,
+            "count": 3,
+            "url": "https://b.bdstatic.com/searchbox/image/gcp/20240122/561454708.png"
+        },
+        {
+            "id": 6,
+            "name": "垂钓",
+            "type": 1,
+            "useStatus": 0,
+            "gainStatus": 0,
+            "count": 0,
+            "url": "https://b.bdstatic.com/searchbox/image/gcp/20240122/3573004468.png"
+        },
+        {
+            "id": 8,
+            "name": "优雅",
+            "type": 1,
+            "useStatus": 0,
+            "gainStatus": 0,
+            "count": 0,
+            "url": "https://b.bdstatic.com/searchbox/image/gcp/20240122/1808205525.png"
+        },
+        {
+            "id": 12,
+            "name": "海岛",
+            "type": 1,
+            "useStatus": 0,
+            "gainStatus": 0,
+            "count": 0,
+            "url": "https://b.bdstatic.com/searchbox/image/gcp/20240122/2578554050.png"
+        },
+        {
+            "id": 3,
+            "name": "采花",
+            "type": 0,
+            "useStatus": 0,
+            "gainStatus": 0,
+            "count": 0,
+            "url": "https://b.bdstatic.com/searchbox/image/gcp/20240122/471283652.png"
+        },
+        {
+            "id": 4,
+            "name": "酷炫",
+            "type": 0,
+            "useStatus": 0,
+            "gainStatus": 0,
+            "count": 0,
+            "url": "https://b.bdstatic.com/searchbox/image/gcp/20240122/2922900436.png"
+        },
+        {
+            "id": 5,
+            "name": "精致",
+            "type": 0,
+            "useStatus": 0,
+            "gainStatus": 0,
+            "count": 0,
+            "url": "https://b.bdstatic.com/searchbox/image/gcp/20240122/2472002148.png"
+        },
+        {
+            "id": 7,
+            "name": "戏水",
+            "type": 0,
+            "useStatus": 0,
+            "gainStatus": 0,
+            "count": 0,
+            "url": "https://b.bdstatic.com/searchbox/image/gcp/20240122/3919024388.png"
+        },
+        {
+            "id": 9,
+            "name": "春游",
+            "type": 0,
+            "useStatus": 0,
+            "gainStatus": 0,
+            "count": 0,
+            "url": "https://b.bdstatic.com/searchbox/image/gcp/20240122/1453797221.png"
+        },
+        {
+            "id": 10,
+            "name": "休闲",
+            "type": 0,
+            "useStatus": 0,
+            "gainStatus": 0,
+            "count": 0,
+            "url": "https://b.bdstatic.com/file/20240122/17059069805884.png"
+        },
+        {
+            "id": 11,
+            "name": "摸鱼",
+            "type": 0,
+            "useStatus": 0,
+            "gainStatus": 0,
+            "count": 0,
+            "url": "https://b.bdstatic.com/searchbox/image/gcp/20240122/3725714962.png"
+        },
+        {
+            "id": 13,
+            "name": "烂漫",
+            "type": 0,
+            "useStatus": 0,
+            "gainStatus": 0,
+            "count": 0,
+            "url": "https://b.bdstatic.com/searchbox/image/gcp/20240122/2765206898.png"
+        },
+        {
+            "id": 14,
+            "name": "吃货",
+            "type": 0,
+            "useStatus": 0,
+            "gainStatus": 0,
+            "count": 0,
+            "url": "https://b.bdstatic.com/searchbox/image/gcp/20240122/384919906.png"
+        },
+        {
+            "id": 15,
+            "name": "出游",
+            "type": 0,
+            "useStatus": 0,
+            "gainStatus": 0,
+            "count": 0,
+            "url": "https://b.bdstatic.com/searchbox/image/gcp/20240122/730939602.png"
+        }
+    ]
+}

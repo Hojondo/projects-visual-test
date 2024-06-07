@@ -1,54 +1,54 @@
 <template>
   <div class="container">
-    <div class="node" :style="{color: !root.colorIsBlack?'red':'unset'}">
+    <div class="node" :style="{ color: !root.colorIsBlack ? 'red' : 'unset' }">
       {{ root.data }}
     </div>
     <div class="childContainer">
       <div v-if="root && root.leftChild" class="leftChild">
         <!-- ll -->
         <!-- <slot name="left" /> -->
-        <Test :level="level+1" :root="root.leftChild" />
+        <Test :level="level + 1" :root="root.leftChild" />
       </div>
       <div v-if="root && root.rightChild" class="rightChild">
         <!-- rr -->
         <!-- <slot name="right" /> -->
-        <Test :level="level+1" :root="root.rightChild"/>
+        <Test :level="level + 1" :root="root.rightChild" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import Test from './Test.vue'
-const props = defineProps(['root', 'level'])
+import Test from "./Test.vue";
+const props = defineProps(["root", "level"]);
 
 const root = props.root;
 const level = props.level;
-
 </script>
 
 <style scoped lang="scss">
-.container{
+.container {
   // position: absolute;
   min-width: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  .node{
+  .node {
     font-size: 18px;
     line-height: 18px;
   }
-  .childContainer{
+  .childContainer {
     display: flex;
     position: relative;
-    >div{
+    > div {
       // overflow: hidden;
       flex: 1;
     }
-    .leftChild, .rightChild{
+    .leftChild,
+    .rightChild {
       padding-top: 5px;
-      &::before{
-        content: '';
+      &::before {
+        content: "";
         position: absolute;
         top: 0;
         left: 50%;
@@ -57,14 +57,15 @@ const level = props.level;
         background-color: #000;
       }
     }
-    .leftChild{
+    .leftChild {
       transform: translateX(-50%);
     }
-    .rightChild{
+    .rightChild {
       transform: translateX(50%);
     }
-    &::before, &::after{
-      content: '';
+    &::before,
+    &::after {
+      content: "";
       display: block;
       position: absolute;
       top: 0;
@@ -73,10 +74,10 @@ const level = props.level;
       height: 1px;
       background-color: #000;
     }
-    &::before{
+    &::before {
       transform: translateX(-100%);
     }
-    &::after{
+    &::after {
       // transform: translateX(100%);
     }
   }

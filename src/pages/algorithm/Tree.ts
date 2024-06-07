@@ -1,3 +1,4 @@
+// @ts-nocheck
 // 树
 import Lodash from "lodash";
 /**

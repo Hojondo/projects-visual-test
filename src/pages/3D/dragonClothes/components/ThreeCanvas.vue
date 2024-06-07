@@ -5,16 +5,16 @@
 </template>
 
 <script>
+import { defineComponent, ref } from 'vue'
+
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {RGBELoader} from 'three/examples/jsm/loaders/RGBELoader.js';
-// import NWorker from 'worker-loader!./three.worker.js';
 import {modelAssetsMapping} from '../const';
 import {RectAreaLightUniformsLib} from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js';
-// import {RectAreaLightHelper} from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
-
 import {TransformControls} from 'three/examples/jsm/controls/TransformControls.js';
-// import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
+import hdrFile from '../assets/sky.hdr'
+import {allGlb, allTexture} from '../const'
 
 
 const loader = new GLTFLoader();
@@ -54,9 +54,6 @@ export default {
             activeClothingActions: [], // 激活的服装打招呼动作 actions 集合[]
 
             clothesCache: {}, // 装扮cache。颗粒度以模型本身为准
-            // interface ClothesCache {
-            //     [modelName:string]: {clothingModel, clothingMixer, clothingAction}
-            // }
         };
     },
 
@@ -88,14 +85,10 @@ export default {
             const canvas = this.$refs.threeRef;
             const supportGL2 = canvas.getContext('webgl2');
             if (!supportGL2) {
-                this.$emit('checkSupportGL2', false);
+                this.$emit('setReady', false);
                 this.$destroy();
                 return;
             }
-            // 兜底，命中3D组件情况下 最长 3s 后隐藏loading页
-            setTimeout(() => {
-                this.$emit('checkSupportGL2', true);
-            }, 3000);
 
             // 开始执行canvas初始化逻辑
             const canvasRatio = canvas.clientWidth / canvas.clientHeight;
@@ -153,7 +146,7 @@ export default {
             const pmremGenerator = new THREE.PMREMGenerator(renderer);
             // pmremGenerator.compileEquirectangularShader();
             pmremGenerator.compileCubemapShader();
-            rgbeLoader.load('https://matrix-fe.cdn.bcebos.com/act/signin/dragon/sky_1.hdr', texture => {
+            rgbeLoader.load(hdrFile, texture => {
                 texture.mapping = THREE.EquirectangularReflectionMapping;
 
                 const renderTarget = pmremGenerator.fromEquirectangular(texture).texture;
@@ -164,24 +157,6 @@ export default {
                 texture.dispose();
                 pmremGenerator.dispose();
             });
-            // const pmremGenerator = new THREE.PMREMGenerator(renderer);
-            // pmremGenerator.compileCubemapShader();
-            // // pmremGenerator.compileEquirectangularShader();
-            // const worker = new Worker('http://hzt.bcc-szzj.baidu.com:8087/static/n/matrixapp/three.worker.worker.worker.js');
-            // worker.postMessage({type: 'loadHDR'});
-            // worker.onmessage = e => {
-            //     const data = e.data;
-            //     if (data.type === 'loadHDR') {
-            //         const texture = new THREE.DataTexture().copy(data.texture);
-            //         texture.mapping = THREE.EquirectangularReflectionMapping;
-            //         const renderTarget = pmremGenerator.fromEquirectangular(texture).texture;
-            //         // const renderTarget = pmremGenerator.fromCubemap(texture).texture;
-            //         scene.environment = renderTarget;
-            //         // 释放资源
-            //         texture.dispose();
-            //         pmremGenerator.dispose();
-            //     }
-            // };
 
 
             // group
@@ -190,8 +165,6 @@ export default {
             const dragonRotationMixer = new THREE.AnimationMixer(meshGroup);
             const dragonRotationKeyframe = new THREE.VectorKeyframeTrack(
                 '.rotation[y]',
-                // [0, 0.5, 1.5, 2],
-                // [0, -Math.PI / 4, Math.PI / 4, 0]
                 [0, 0.5],
                 [Math.PI / 4, 0]
             );
@@ -215,14 +188,13 @@ export default {
             this.transformControls = transformControls;
             transformControls.attach(meshGroup);
             transformControls.setMode('rotate');
-            transformControls.scale = new THREE.Vector3(100, 900, 1);
+            // transformControls.scale = new THREE.Vector3(100, 900, 1);
+            transformControls.scale.set(100, 900, 1);
             transformControls.visible = false;
             transformControls.showX = false;
             transformControls.showZ = false;
             transformControls.position.y = eyePointY / 3 * 2;
             scene.add(transformControls);
-            // const orbitControls = new OrbitControls(camera, renderer.domElement);
-            // orbitControls.target.set(0, eyePointY / 3 * 2, 0);
 
 
             // 帧，定义渲染循环
@@ -244,8 +216,8 @@ export default {
 
             // 加载裸龙
             Promise.all([
-                loadGlb('https://matrix-fe.cdn.bcebos.com/act/signin/dragon/blinkModel.glb'),
-                loadGlb('https://matrix-fe.cdn.bcebos.com/act/signin/dragon/body.glb')
+                loadGlb(allGlb.blinkModel),
+                loadGlb(allGlb.body)
             ]).then(async models => {
                 const [blinkFile, bodyFile] = models;
                 const blinkAnimationsData = blinkFile.animations;
@@ -269,7 +241,7 @@ export default {
                 });
 
                 // 处理模型2 身体模型
-                const textureUrl = 'https://matrix-fe.cdn.bcebos.com/act/signin/dragon/body.jpg';
+                const textureUrl = allTexture.body;
                 const {model} = await this.handleModelLoad(1, bodyFile, textureUrl);
                 model.traverse(async obj => {
                     if (!obj.isMesh) {
@@ -300,7 +272,7 @@ export default {
 
                     // 加载相应衣服
                     await this.clothingChanged(this.selectedId);
-                    this.$emit('checkSupportGL2', true);
+                    this.$emit('setReady', true);
                     animate();
                     dragonRotationAction.play(); // 开始龙旋转
                 });
@@ -418,7 +390,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../bsass/core/mixin.scss';
 
 .canvas-dom {
     position: relative;
