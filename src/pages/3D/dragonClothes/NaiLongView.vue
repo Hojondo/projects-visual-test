@@ -71,7 +71,7 @@ import ThreeCanvas from "./components/ThreeCanvas.vue";
 import IconsSvg from "./components/IconsSvg.vue";
 
 import mockData from "./mock_data.json";
-
+import {preloadSrc} from "@/utils";
 export default defineComponent({
   name: "NaiLongView",
   components: {
@@ -101,7 +101,11 @@ export default defineComponent({
     },
   },
   watch: {},
-  created() {},
+  created() {
+    preloadSrc('https://xxx/draw-afx.mp4').then(res => {
+        this.preloadData.drawAfx = res;
+    });
+  },
   mounted() {
     this.getLoadData();
   },

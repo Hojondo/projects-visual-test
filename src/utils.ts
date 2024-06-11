@@ -8,3 +8,19 @@ export async function importAll(r: any) {
   }
   return images;
 }
+
+
+// 预加载一些 非mounted请求的大资源
+export const preloadSrc = (src: string) => new Promise((resolve, reject) => {
+  const r = new XMLHttpRequest();
+  r.responseType = 'blob';
+  r.open('GET', src);
+  r.onload = function () {
+      resolve(URL.createObjectURL(r.response));
+  };
+  r.onerror = function () {
+      reject(new Error('error'));
+  };
+
+  r.send();
+});
